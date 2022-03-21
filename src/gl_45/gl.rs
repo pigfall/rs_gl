@@ -23,7 +23,7 @@ impl GLFnsWrapper{
 }
 
 
-impl GLFns for GLFnsWrapper{
+impl GLFns for GLFnsWrapper {
     fn get_error(&self)->Result<(),ErrGL>{
         unsafe{
             let gl = &self.raw;
@@ -36,13 +36,17 @@ impl GLFns for GLFnsWrapper{
             }
         }
     }
+
     fn draw_array(&self,mode: DrawArrayMode,starting_index: i32,count: i32)->Result<(),ErrGL>{
         self.get_error().unwrap();
+        let raw_mode = match mode{
+            DrawArrayMode::GL_TRIANGLES =>gl_gen::TRIANGLES,
+        };
 
         let gl = &self.raw;
 
         unsafe{
-            gl.DrawArrays(mode as _ ,starting_index,count);
+            gl.DrawArrays(raw_mode ,starting_index,count);
         };
 
         return self.get_error();
@@ -68,7 +72,17 @@ impl GLFns for GLFnsWrapper{
             gl.Clear(target);
         };
         return self.get_error();
+    }
 
+    fn max_texture_size()->u32{
+        return gl_gen::MAX_TEXTURE_SIZE;
+    }
+
+    fn raw_compile_shader(&self,shader_id: u32){
+        let gl = &self.raw;
+        unsafe{
+            gl.CompileShader(shader_id);
+        }
     }
 }
 
