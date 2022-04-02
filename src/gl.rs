@@ -66,6 +66,12 @@ impl Gl{
             }
             return Ok(ShaderProgram::new(pg,vertex_shader,frag_shader));
         };
+    }
+
+    pub fn use_program(&self,pg: Option<glow::Program>){
+        unsafe{
+            self.raw.use_program(pg)
+        }
 
     }
 

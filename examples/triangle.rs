@@ -26,7 +26,7 @@ fn main(){
     ";
     const frag_shader:&str ="#version 330 core
     void main(){
-        gl_FragColor = vec4(0.1,0.2,0.3,0.0);
+        gl_FragColor = vec4(0.1,0.2,0.3,0.5);
     }
 
     ";
@@ -46,6 +46,7 @@ fn main(){
         );
 
     let pg = gl.make_program(vertex_shader,frag_shader).unwrap();
+    gl.use_program(Some(pg.pg_id()));
 
     let attirb_pos_loc ={
         gl.get_attrib_location(pg.pg_id(),"attrib_pos").unwrap()
