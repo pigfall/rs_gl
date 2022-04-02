@@ -30,3 +30,35 @@ impl VertexAttribPointerShouleBeNormalized{
         return Self(1)
     }
 }
+
+pub struct TargetBindBuffer(pub u32);
+
+impl TargetBindBuffer{
+    pub fn ArrayBuffer()->Self{
+        return  Self(glow::ARRAY_BUFFER);
+    }
+
+}
+
+pub struct BufferDataUsage(pub u32);
+
+impl BufferDataUsage{
+    pub fn StaticDraw()->Self{
+        return Self(glow::STATIC_DRAW);
+    }
+}
+
+
+#[derive(Debug)]
+pub enum GlErr{
+
+}
+
+
+pub struct DrawArrayMode(pub u32);
+
+impl DrawArrayMode{
+    pub fn triangle()->Self{
+        Self(glow::TRIANGLES)
+    }
+}

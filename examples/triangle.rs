@@ -31,6 +31,20 @@ fn main(){
 
     ";
 
+    let data = [
+        0.0f32,0.5,0.0,
+        -0.5,-0.5,0.0,
+        0.5,-0.5,0.0,
+    ];
+
+    let buffer_id = gl.gen_buffer().unwrap();
+    gl.bind_buffer(TargetBindBuffer::ArrayBuffer(),Some(buffer_id));
+    gl.buffer_data_u8_slice(
+        TargetBindBuffer::ArrayBuffer(),
+        &(data.iter().flat_map(|e|e.to_le_bytes()).collect::<Vec<u8>>())[..],
+        BufferDataUsage::StaticDraw(),
+        );
+
     let pg = gl.make_program(vertex_shader,frag_shader).unwrap();
 
     let attirb_pos_loc ={
@@ -46,5 +60,12 @@ fn main(){
         );
 
     gl.enable_vertex_attrib_array(attirb_pos_loc);
+
+    gl.get_error().unwrap();
+
+    ev.run(move |_,_,_|{
+        gl.draw_arrays(DrawArrayMode::triangle(),0,3);
+        ctx.swap_buffers().unwrap();
+    });
 }
 

@@ -4,7 +4,8 @@ use glow::Shader;
 use std::ffi::CStr;
 use std::ops::Deref;
 use std::os::raw::c_void;
-use crate::types::{ShaderType,VertexComponentDataType, VertexAttribPointerShouleBeNormalized};
+use crate::types::{
+    ShaderType,VertexComponentDataType, VertexAttribPointerShouleBeNormalized,TargetBindBuffer,BufferDataUsage,GlErr,DrawArrayMode};
 use crate::shader_program::ShaderProgram;
 pub struct Gl{
     raw:glow::Context,
@@ -100,7 +101,41 @@ impl Gl{
             self.raw.enable_vertex_attrib_array(attrib_location)
         }
     }
-    
+
+    pub fn gen_buffer(&self)->Result<glow::Buffer,String>{
+        unsafe{
+            self.raw.create_buffer()
+        }
+    }
+
+    pub fn bind_buffer(&self,target: TargetBindBuffer,buffer :Option<glow::Buffer>){
+        unsafe{
+            self.raw.bind_buffer(target.0,buffer)
+        }
+    }
+
+    pub fn buffer_data_u8_slice(&self,target: TargetBindBuffer,data: &[u8],usage: BufferDataUsage){
+        unsafe{
+            self.raw.buffer_data_u8_slice(target.0,data,usage.0)
+        }
+    }
+
+    pub fn get_error(&self)->Result<(),GlErr>{
+        unsafe{
+            let err = self.raw.get_error();
+            match err{
+                0 =>{return Ok(())},
+                _ => {panic!("{:?}",format!("undefined gl error {:?}",err))}
+            }
+        }
+
+    }
+
+    pub fn draw_arrays(&self,mode: DrawArrayMode,first:  i32,number_of_vertex_to_draw: i32){
+        unsafe{
+            self.raw.draw_arrays(mode.0,first,number_of_vertex_to_draw);
+        };
+    }
 }
 
 impl Deref for Gl{
