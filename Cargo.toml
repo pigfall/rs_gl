@@ -13,6 +13,7 @@ glutin = "0.28.0"
 rustsdk = {git="https://github.com/pigfall/rustsdk.git"}
 #glow = {git="https://github.com/pigfall/glow",branch="tzz_dev_base_on_v0.11.1"}
 glow = {path="../glow"}
+nalgebra-glm = "0.16.0"
 
 
 [build-dependencies]

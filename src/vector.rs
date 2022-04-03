@@ -1,0 +1,7 @@
+
+
+pub struct Vector3{
+
+}
+
+

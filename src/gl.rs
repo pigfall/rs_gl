@@ -7,6 +7,7 @@ use std::os::raw::c_void;
 use crate::types::{
     ShaderType,VertexComponentDataType, VertexAttribPointerShouleBeNormalized,TargetBindBuffer,BufferDataUsage,GlErr,DrawArrayMode};
 use crate::shader_program::ShaderProgram;
+use crate::mesh::Mesh;
 pub struct Gl{
     raw:glow::Context,
 }
@@ -113,6 +114,17 @@ impl Gl{
             self.raw.create_buffer()
         }
     }
+    pub fn gen_vertex_array(&self)->Result<glow::VertexArray,String>{
+        unsafe{
+            return self.raw.create_vertex_array();
+        }
+    }
+
+    pub fn bind_vertex_array(&self,buffer: Option<glow::VertexArray>){
+        unsafe{
+            return self.raw.bind_vertex_array(buffer)
+        }
+    }
 
     pub fn bind_buffer(&self,target: TargetBindBuffer,buffer :Option<glow::Buffer>){
         unsafe{
@@ -141,6 +153,14 @@ impl Gl{
         unsafe{
             self.raw.draw_arrays(mode.0,first,number_of_vertex_to_draw);
         };
+    }
+
+    pub fn draw_mesh(&self, meshes: &[Mesh]){
+        let target = TargetBindBuffer::array_buffer();
+        for mesh in meshes{
+            self.bind_vertex_array(Some(mesh.vao));
+            self.draw_arrays(DrawArrayMode::triangle(),0,mesh.position.len().try_into().unwrap())
+        }
     }
 }
 

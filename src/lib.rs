@@ -1,5 +1,7 @@
 mod gl;
 pub mod types;
+pub mod mesh;
+pub mod vector;
 mod shader_program;
 
 pub use gl::Gl;

@@ -31,10 +31,12 @@ impl VertexAttribPointerShouleBeNormalized{
     }
 }
 
+
+#[derive(Copy,Clone)]
 pub struct TargetBindBuffer(pub u32);
 
 impl TargetBindBuffer{
-    pub fn ArrayBuffer()->Self{
+    pub fn array_buffer()->Self{
         return  Self(glow::ARRAY_BUFFER);
     }
 
