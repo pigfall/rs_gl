@@ -3,7 +3,7 @@ use rs_gl::Gl;
 use rs_gl::glow;
 use rs_gl::types::*;
 use rs_gl::glow::HasContext;
-use rs_gl::mesh::Mesh;
+use rs_gl::mesh::{Mesh,Vector};
 use glutin::platform::windows::RawContextExt;
 use winit::window::{WindowBuilder};
 use glutin::ContextBuilder;
@@ -45,17 +45,17 @@ fn main(){
 
     let mesh  = [
         Mesh::new(&gl,vec![
-                  glm::vec3(0.0f32,0.5,0.0),
-                  glm::vec3(-0.5f32,-0.5f32,0.0),
-                  glm::vec3(0.5,-0.5,0.0),
+                  Vector{text_coord:glm::vec3(0.0f32,0.0f32,0.0f32),position:glm::vec3(0.0f32,0.5,0.0)},
+                  Vector{text_coord:glm::vec3(0.0f32,0.0f32,0.0f32),position:glm::vec3(-0.5f32,-0.5f32,0.0)},
+                  Vector{text_coord:glm::vec3(0.0f32,0.0f32,0.0f32),position:glm::vec3(0.5,-0.5,0.0)},
 
         ]),
         Mesh::new(
             &gl,
             vec![
-                  glm::vec3(-0.532,0.5,0.0),
-                  glm::vec3(0.0f32,0.5,0.0),
-                  glm::vec3(-0.5f32,-0.5f32,0.0),
+                  Vector{text_coord:glm::vec3(0.0f32,0.0f32,0.0f32),position:glm::vec3(-0.532,0.5,0.0)},
+                  Vector{text_coord:glm::vec3(0.0f32,0.0f32,0.0f32),position:glm::vec3(0.0f32,0.5,0.0)},
+                  Vector{text_coord:glm::vec3(0.0f32,0.0f32,0.0f32),position:glm::vec3(-0.5f32,-0.5f32,0.0)},
             ],
             ),
 

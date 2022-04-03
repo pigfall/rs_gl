@@ -159,7 +159,7 @@ impl Gl{
         let target = TargetBindBuffer::array_buffer();
         for mesh in meshes{
             self.bind_vertex_array(Some(mesh.vao));
-            self.draw_arrays(DrawArrayMode::triangle(),0,mesh.position.len().try_into().unwrap())
+            self.draw_arrays(DrawArrayMode::triangle(),0,mesh.vertices.len().try_into().unwrap())
         }
     }
 }
