@@ -4,6 +4,8 @@ pub mod mesh;
 pub mod vector;
 pub mod vertex_buffer;
 pub mod native_buffer;
+pub mod geometry_buffer;
+pub mod pipeline_state;
 mod shader_program;
 
 pub use gl::Gl;

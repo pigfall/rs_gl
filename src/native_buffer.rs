@@ -1,4 +1,23 @@
-use crate::vertex_buffer::{VertexBuffer,VertexAttributeDataType};
+use crate::{
+vertex_buffer::{VertexBuffer,VertexAttributeDataType},
+pipeline_state::{PipelineState},
+};
+
+use std::{
+    marker::PhantomData,
+};
+
+
+pub struct NativeBuffer {
+    state: *mut PipelineState,
+    id: glow::Buffer,
+    kind: GeometryBufferKind,
+    element_size: usize,
+    size_bytes: usize,
+    // Force compiler to not implement Send and Sync, because OpenGL is not thread-safe.
+    thread_mark: PhantomData<*const u8>,
+}
+
 pub struct NativeBufferBuilder {
     element_size: usize,
     kind: GeometryBufferKind,
@@ -6,6 +25,8 @@ pub struct NativeBufferBuilder {
     data: *const u8,
     data_size: usize,
 }
+
+
 
 impl NativeBufferBuilder{
     pub fn from_vertex_buffer(buffer: &VertexBuffer, kind: GeometryBufferKind) -> Self {
