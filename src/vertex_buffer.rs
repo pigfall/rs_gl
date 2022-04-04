@@ -98,6 +98,19 @@ impl VertexBuffer{
             dense_layout,
         })
     }
+
+    /// Returns a reference to underlying data buffer slice.
+    pub fn raw_data(&self) -> &[u8] {
+        &self.data
+    }
+    /// Return vertex size of the buffer.
+    pub fn vertex_size_in_byte(&self) -> u8 {
+        self.vertex_size_in_byte
+    }
+    /// Returns vertex buffer layout.
+    pub fn layout(&self) -> &[VertexAttribute] {
+        &self.dense_layout
+    }
 }
 
 /// Vertex attribute is a simple "bridge" between raw data and its interpretation. In
