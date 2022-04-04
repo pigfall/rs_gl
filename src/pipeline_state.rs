@@ -10,6 +10,15 @@ pub struct PipelineState {
 use std::fmt::Formatter;
 
 impl PipelineState{
+    pub fn new(context: glow::Context) -> Self {
+
+        Self {
+            gl: context,
+            vao: Default::default(),
+            vbo: Default::default(),
+            frame_statistics: Default::default(),
+        }
+    }
     pub fn set_vertex_array_object(&mut self, vao: Option<glow::VertexArray>) {
         if self.vao != vao {
             self.vao = vao;
