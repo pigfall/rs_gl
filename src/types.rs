@@ -64,3 +64,10 @@ impl DrawArrayMode{
         Self(glow::TRIANGLES)
     }
 }
+
+#[derive(Copy, Clone)]
+#[repr(u32)]
+pub enum GeometryBufferKind {
+    StaticDraw = glow::STATIC_DRAW,
+    DynamicDraw = glow::DYNAMIC_DRAW,
+}
