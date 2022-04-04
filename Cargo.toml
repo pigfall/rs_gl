@@ -8,8 +8,6 @@ edition = "2021"
 [dev-dependencies]
 winit = "0.26.1"
 glutin = "0.28.0"
-#fyrox = "0.24.0"
-fyrox = {path="../fyrox-0.24.0"}
 
 [dependencies]
 rustsdk = {git="https://github.com/pigfall/rustsdk.git"}
@@ -20,6 +18,8 @@ nalgebra = "0.29.0"
 thiserror = "1"
 fyrox-core = "0.19.0"
 fxhash = "0.2.1"
+fyrox = "0.24.0"
+
 
 
 [build-dependencies]

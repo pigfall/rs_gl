@@ -71,7 +71,7 @@ impl NativeBufferBuilder{
     }
 
 
-    fn build(self, state: &mut PipelineState) -> Result<NativeBuffer, FrameworkError> {
+    pub fn build(self, state: &mut PipelineState) -> Result<NativeBuffer, FrameworkError> {
         let vbo = unsafe { state.gl.create_buffer()? };
 
         state.set_vertex_buffer_object(Some(vbo));
