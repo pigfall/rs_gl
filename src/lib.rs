@@ -7,6 +7,7 @@ pub mod native_buffer;
 pub mod geometry_buffer;
 pub mod pipeline_state;
 pub mod surface_data;
+pub mod vertex;
 mod shader_program;
 
 pub use gl::Gl;
