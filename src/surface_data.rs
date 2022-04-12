@@ -55,6 +55,43 @@ impl SurfaceData{
             cache_entry: AtomicIndex::unassigned(),
         }
     }
+    pub fn make_unit_xy_quad() -> Self {
+        let vertices = vec![
+            StaticVertex {
+                position: Vector3::default(),
+                normal: Vector3::z(),
+                tex_coord: Vector2::y(),
+                tangent: Vector4::default(),
+            },
+            StaticVertex {
+                position: Vector3::x(),
+                normal: Vector3::z(),
+                tex_coord: Vector2::new(1.0, 1.0),
+                tangent: Vector4::default(),
+            },
+            StaticVertex {
+                position: Vector3::new(1.0, 1.0, 0.0),
+                normal: Vector3::z(),
+                tex_coord: Vector2::x(),
+                tangent: Vector4::default(),
+            },
+            StaticVertex {
+                position: Vector3::y(),
+                normal: Vector3::z(),
+                tex_coord: Vector2::default(),
+                tangent: Vector4::default(),
+            },
+        ];
+
+        let triangles = vec![TriangleDefinition([0, 1, 2]), TriangleDefinition([0, 2, 3])];
+
+        Self::new(
+            VertexBuffer::new(vertices.len(), StaticVertex::layout(), vertices).unwrap(),
+            TriangleBuffer::new(triangles),
+            true,
+        )
+    }
+
     pub fn make_cube(transform: Matrix4<f32>) -> Self {
         let vertices = vec![
             // Front
