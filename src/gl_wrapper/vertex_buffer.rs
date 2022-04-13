@@ -110,3 +110,62 @@ impl  <'a> NativeBufferBuilder<'a> {
 pub struct PipelineState{
     pub gl: glow::Context,
 }
+
+pub struct GeometryBuffer{
+    vao:glow::VertexArray
+}
+
+impl GeometryBuffer{
+    pub fn from_native_buffer(buffer_builder:NativeBufferBuilder,state:&mut PipelineState)->GeometryBuffer{
+        return GeometryBufferBuilder::with_native_buffer(buffer_builder).build(state);
+    }
+
+    pub fn bind(&self,state:&mut PipelineState)->GeometryBufferBinding{
+        unsafe{
+            state.gl.bind_vertex_array(Some(self.vao));
+            return GeometryBufferBinding{
+                buffer:self,
+            }
+        }
+    }
+}
+
+pub struct GeometryBufferBuilder<'a>{
+    buffer_builder: NativeBufferBuilder<'a>,
+}
+
+impl <'a>GeometryBufferBuilder<'a>{
+    pub fn with_native_buffer(buffer: NativeBufferBuilder<'a>)->Self{
+        return Self{
+            buffer_builder:buffer,
+        }
+    }
+
+    pub fn build(&self,state:&mut PipelineState)->GeometryBuffer{
+        unsafe{
+            let vao = state.gl.create_vertex_array().unwrap();
+            state.gl.bind_vertex_array(Some(vao));
+            self.buffer_builder.build(state);
+
+            return GeometryBuffer{
+                vao:vao,
+            }
+        }
+    }
+
+}
+
+
+pub struct GeometryBufferBinding<'a>{
+    buffer: &'a GeometryBuffer,
+}
+
+impl <'a>GeometryBufferBinding<'a>{
+    pub fn draw(&self,state:&mut PipelineState,count: i32){
+        unsafe{
+            state.gl.draw_arrays(glow::TRIANGLES,0,count)
+        }
+    }
+
+}
+
