@@ -2,10 +2,10 @@ pub use glow::HasContext;
 
 #[derive(Copy,Clone)]
 pub struct VertexAttributeDescriptor{
-    shader_location:u32,
-    num_of_demision:i32,
-    data_type: VertexAttributeDataType,
-    normalized: bool,
+    pub shader_location:u32,
+    pub num_of_demision:i32,
+    pub data_type: VertexAttributeDataType,
+    pub normalized: bool,
 }
 
 impl VertexAttributeDescriptor{
@@ -108,5 +108,5 @@ impl  <'a> NativeBufferBuilder<'a> {
 
 
 pub struct PipelineState{
-    gl: glow::Context,
+    pub gl: glow::Context,
 }
