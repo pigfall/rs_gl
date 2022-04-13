@@ -50,6 +50,44 @@ impl VertexBuffer{
         }
         return size;
     }
+
+    pub fn unit_triangle()->Self{
+        let pos_data = [
+            0.0f32,0.5,0.0,
+            -0.5,-0.5,0.0,
+            0.5,-0.5,0.0,
+        ];
+        return Self{
+            data_of_list_of_attrib_vertex_one_pass:pos_data.iter().flat_map(|e|e.to_le_bytes()).collect::<Vec<u8>>(),
+            layout_of_attrib_vertex_one_pass:vec![VertexAttributeDescriptor{
+                shader_location:0,
+                num_of_demision:3,
+                data_type: VertexAttributeDataType::F32,
+                normalized:false,
+            }]
+        }
+    }
+
+    pub fn unit_rectangle()->Self{
+        let pos_data = [
+            -0.5f32,0.5,0.0,
+            0.5,0.5,0.0,
+            -0.5,-0.5,0.0,
+
+            0.5,-0.5,0.0
+            -0.5,-0.5,0.0,
+            0.5,0.5,0.0,
+        ];
+        return Self{
+            data_of_list_of_attrib_vertex_one_pass:pos_data.iter().flat_map(|e|e.to_le_bytes()).collect::<Vec<u8>>(),
+            layout_of_attrib_vertex_one_pass:vec![VertexAttributeDescriptor{
+                shader_location:0,
+                num_of_demision:3,
+                data_type: VertexAttributeDataType::F32,
+                normalized:false,
+            }]
+        }
+    }
 }
 
 pub struct NativeBuffer{
@@ -127,6 +165,13 @@ impl GeometryBuffer{
                 buffer:self,
             }
         }
+    }
+
+    pub fn unit_triangle(state:&mut PipelineState)->GeometryBuffer{
+        return Self::from_native_buffer(
+            NativeBufferBuilder::from_vertex_buffer(&VertexBuffer::unit_triangle(), NativeBufferBufferDataUsage::STATIC_DRAW),
+            state,
+            )
     }
 }
 
