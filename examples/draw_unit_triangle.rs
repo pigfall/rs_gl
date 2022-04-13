@@ -49,12 +49,6 @@ fn main(){
     
     let data_bytes = data.iter().flat_map(|e|e.to_le_bytes()).collect::<Vec<u8>>();
 
-    let gm_buffer = GeometryBuffer::from_native_buffer(NativeBufferBuilder::from_vertex_buffer(&VertexBuffer::from_bytes(data_bytes,vec![VertexAttributeDescriptor{
-    shader_location:0,
-    num_of_demision:3,
-    data_type: VertexAttributeDataType::F32,
-    normalized:false,
-    }]), NativeBufferBufferDataUsage::STATIC_DRAW),&mut state);
 
 
     let gbuffer = GeometryBuffer::unit_triangle(&mut state);
@@ -63,7 +57,7 @@ fn main(){
 
     ev.run(move |_,_,_|{
         //gl.draw_arrays(DrawArrayMode::triangle(),0,3);
-        gbuffer.bind(&mut state).draw(&mut state,3);
+        gbuffer.bind(&mut state).draw(&mut state);
         ctx.swap_buffers().unwrap();
     });
 }

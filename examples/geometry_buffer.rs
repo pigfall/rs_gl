@@ -54,7 +54,7 @@ fn main(){
     num_of_demision:3,
     data_type: VertexAttributeDataType::F32,
     normalized:false,
-    }]), NativeBufferBufferDataUsage::STATIC_DRAW),&mut state);
+    }]), NativeBufferBufferDataUsage::STATIC_DRAW),&mut state,3);
 
 
     let data2 = [
@@ -69,14 +69,14 @@ fn main(){
     num_of_demision:3,
     data_type: VertexAttributeDataType::F32,
     normalized:false,
-    }]), NativeBufferBufferDataUsage::STATIC_DRAW),&mut state);
+    }]), NativeBufferBufferDataUsage::STATIC_DRAW),&mut state,3);
 
 
 
     ev.run(move |_,_,_|{
         //gl.draw_arrays(DrawArrayMode::triangle(),0,3);
-        gm_buffer.bind(&mut state).draw(&mut state,3);
-        gm_buffer2.bind(&mut state).draw(&mut state,3);
+        gm_buffer.bind(&mut state).draw(&mut state);
+        gm_buffer2.bind(&mut state).draw(&mut state);
         ctx.swap_buffers().unwrap();
     });
 }
