@@ -74,8 +74,8 @@ impl VertexBuffer{
             0.5,0.5,0.0,
             -0.5,-0.5,0.0,
 
-            0.5,-0.5,0.0
             -0.5,-0.5,0.0,
+            0.5,-0.5,0.0,
             0.5,0.5,0.0,
         ];
         return Self{
@@ -170,6 +170,13 @@ impl GeometryBuffer{
     pub fn unit_triangle(state:&mut PipelineState)->GeometryBuffer{
         return Self::from_native_buffer(
             NativeBufferBuilder::from_vertex_buffer(&VertexBuffer::unit_triangle(), NativeBufferBufferDataUsage::STATIC_DRAW),
+            state,
+            )
+    }
+
+    pub fn unit_rectangle(state:&mut PipelineState)->GeometryBuffer{
+        return Self::from_native_buffer(
+            NativeBufferBuilder::from_vertex_buffer(&VertexBuffer::unit_rectangle(), NativeBufferBufferDataUsage::STATIC_DRAW),
             state,
             )
     }
