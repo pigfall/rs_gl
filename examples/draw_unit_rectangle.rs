@@ -56,7 +56,7 @@ fn main(){
 
     ev.run(move |_,_,_|{
         //gl.draw_arrays(DrawArrayMode::triangle(),0,3);
-        gbuffer.bind(&mut state).draw(&mut state,6);
+        gbuffer.bind(&mut state).draw(&mut state);
         ctx.swap_buffers().unwrap();
     });
 }

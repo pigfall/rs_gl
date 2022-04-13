@@ -150,12 +150,13 @@ pub struct PipelineState{
 }
 
 pub struct GeometryBuffer{
-    vao:glow::VertexArray
+    vao:glow::VertexArray,
+    draw_count: i32,
 }
 
 impl GeometryBuffer{
-    pub fn from_native_buffer(buffer_builder:NativeBufferBuilder,state:&mut PipelineState)->GeometryBuffer{
-        return GeometryBufferBuilder::with_native_buffer(buffer_builder).build(state);
+    pub fn from_native_buffer(buffer_builder:NativeBufferBuilder,state:&mut PipelineState,draw_count:i32)->GeometryBuffer{
+        return GeometryBufferBuilder::with_native_buffer(buffer_builder).build(state,draw_count);
     }
 
     pub fn bind(&self,state:&mut PipelineState)->GeometryBufferBinding{
@@ -171,6 +172,7 @@ impl GeometryBuffer{
         return Self::from_native_buffer(
             NativeBufferBuilder::from_vertex_buffer(&VertexBuffer::unit_triangle(), NativeBufferBufferDataUsage::STATIC_DRAW),
             state,
+            3,
             )
     }
 
@@ -178,6 +180,7 @@ impl GeometryBuffer{
         return Self::from_native_buffer(
             NativeBufferBuilder::from_vertex_buffer(&VertexBuffer::unit_rectangle(), NativeBufferBufferDataUsage::STATIC_DRAW),
             state,
+            6,
             )
     }
 }
@@ -193,7 +196,7 @@ impl <'a>GeometryBufferBuilder<'a>{
         }
     }
 
-    pub fn build(&self,state:&mut PipelineState)->GeometryBuffer{
+    pub fn build(&self,state:&mut PipelineState,draw_count:i32)->GeometryBuffer{
         unsafe{
             let vao = state.gl.create_vertex_array().unwrap();
             state.gl.bind_vertex_array(Some(vao));
@@ -201,6 +204,7 @@ impl <'a>GeometryBufferBuilder<'a>{
 
             return GeometryBuffer{
                 vao:vao,
+                draw_count:draw_count,
             }
         }
     }
@@ -213,9 +217,9 @@ pub struct GeometryBufferBinding<'a>{
 }
 
 impl <'a>GeometryBufferBinding<'a>{
-    pub fn draw(&self,state:&mut PipelineState,count: i32){
+    pub fn draw(&self,state:&mut PipelineState){
         unsafe{
-            state.gl.draw_arrays(glow::TRIANGLES,0,count)
+            state.gl.draw_arrays(glow::TRIANGLES,0,self.buffer.draw_count)
         }
     }
 
